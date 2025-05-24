@@ -11,7 +11,7 @@ const useAuth = (code) => {
     if (!code || accessToken) return;
 
     axios
-      .post("http://localhost:3000/login", { code })
+      .post("https://spotify-clone-vr81.vercel.app/login", { code })
       .then((res) => {
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
@@ -32,7 +32,7 @@ const useAuth = (code) => {
 
     const interval = setInterval(() => {
       axios
-        .post("http://localhost:3000/refresh", { refreshToken })
+        .post("https://spotify-clone-vr81.vercel.app/refresh", { refreshToken })
         .then((res) => {
           setAccessToken(res.data.accessToken);
           setExpiresIn(res.data.expiresIn);
