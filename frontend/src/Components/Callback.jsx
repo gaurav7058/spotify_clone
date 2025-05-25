@@ -5,7 +5,7 @@ import {
   SPOTIFY_CLIENT_SECRET,
   REDIRECT_URI,
   TOKEN_ENDPOINT
-} from './Config';
+} from './config';
 
 const Callback = () => {
   const navigate = useNavigate();

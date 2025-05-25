@@ -1,5 +1,5 @@
 import React from 'react';
-import { AUTH_ENDPOINT, SPOTIFY_CLIENT_ID, REDIRECT_URI, SCOPES } from './Config';
+import { AUTH_ENDPOINT, SPOTIFY_CLIENT_ID, REDIRECT_URI, SCOPES } from './config';
 
 const Login = () => {
   const loginUrl = `${AUTH_ENDPOINT}?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${encodeURIComponent(SCOPES)}`;
