@@ -14,7 +14,6 @@ Recreate a personalized Spotify homepage experience with user authentication, AP
 - **Styling:** Tailwind CSS (or use SCSS/styled-components/AntD as preferred)
 - **Authentication:** OAuth2 via Spotify
 - **API:** Spotify Web API.
-- **Backend:** Use express.js for genrate the token
 ---
 
 ## 🔑 Features

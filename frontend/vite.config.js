@@ -6,7 +6,8 @@ export default defineConfig({
     tailwindcss(),
    
   ],
-  server : {
-    host: '127.0.0.1',
+  server: {
+    host: '0.0.0.0',
+    port: 5173, // Optional; Render may override this with an environment variable like PORT
   }
 })
