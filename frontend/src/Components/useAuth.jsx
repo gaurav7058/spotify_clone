@@ -20,7 +20,7 @@ const useAuth = (code) => {
         localStorage.setItem("expiresIn", res.data.expiresIn);
       })
       .catch(() => {
-        window.location = "/";
+        window.location = "https://spotify-clone-frontend-flax.vercel.app/";
       });
   }, [code]);
 
@@ -39,7 +39,7 @@ const useAuth = (code) => {
           localStorage.setItem("expiresIn", res.data.expiresIn);
         })
         .catch(() => {
-          window.location = "/";
+          window.location = "https://spotify-clone-frontend-flax.vercel.app/";
         });
     }, (expiresIn - 60) * 1000); // refresh 1 min before expiration
 
