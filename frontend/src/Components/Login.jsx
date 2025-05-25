@@ -1,18 +1,13 @@
 import React from 'react';
-// change
+import { AUTH_ENDPOINT, SPOTIFY_CLIENT_ID, REDIRECT_URI, SCOPES } from './Config';
+
 const Login = () => {
-  
-  const loginUrl = `https://accounts.spotify.com/authorize?client_id=7322e3c6dc2e49749868c347b09f83cf&redirect_uri=https://spotify-clone-frontend-flax.vercel.app/&response_type=code&scope=user-read-private%20playlist-read-private%20user-library-read`;
-// const loginUrl = `https://accounts.spotify.com/authorize?client_id=7322e3c6dc2e49749868c347b09f83cf&redirect_uri=https://spotify-clone-frontend-flax.vercel.app/dashboard&...`;
-//const loginUrl = `https://accounts.spotify.com/authorize?client_id=7322e3c6dc2e49749868c347b09f83cf&redirect_uri=https://spotify-clone-frontend-puce.vercel.app&response_type=code&scope=user-read-private%20playlist-read-private%20user-library-read`;
-
-//const loginUrl = `https://accounts.spotify.com/authorize?client_id=7322e3c6dc2e49749868c347b09f83cf&redirect_uri=https://spotify-clone-frontend-puce.vercel.app/&response_type=code&scope=user-read-private%20playlist-read-private%20user-library-read`;
-
+  const loginUrl = `${AUTH_ENDPOINT}?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${encodeURIComponent(SCOPES)}`;
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-screen bg-black text-white">
       <a href={loginUrl}>
-        <button className="bg-green-500 text-white px-4 py-2 rounded">
+        <button className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded text-lg">
           Login with Spotify
         </button>
       </a>

@@ -1,92 +1,71 @@
 import React, { useEffect, useState } from 'react';
-import useAuth from './useAuth';
 import axios from 'axios';
 import LoadingSpinner from './LoadingSpinner';
 
-const Dashboard = ({ code }) => {
-  const accessToken = useAuth(code);
-  const [userId, setUserId] = useState(null);
-  const [playlists, setPlaylists] = useState([]);
+const Dashboard = () => {
+  const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const accessToken = localStorage.getItem('accessToken');
 
-  // Fetch current user's Spotify profile to get user ID
   useEffect(() => {
-    if (!accessToken) return;
-
-    const fetchUser = async () => {
-      setLoading(true);
+    const fetchTracks = async () => {
       try {
-        const res = await axios.get('https://api.spotify.com/v1/me', {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        });
-        setUserId(res.data.id);
-      } catch (err) {
-        console.error("Error fetching user info:", err);
-        setError("Failed to fetch user info.");
+        const response = await axios.get(
+          'https://api.spotify.com/v1/playlists/3cEYpjA9oz9GiPac4AsH4n/tracks',
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            }
+          }
+        );
+        setTracks(response.data.items);
+        console.log(response.data.items);
+      } catch (error) {
+        console.error('Error fetching tracks:', error);
+        if (error.response?.status === 401) {
+          localStorage.removeItem('accessToken');
+          window.location.href = '/';
+        }
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUser();
+    if (accessToken) {
+      fetchTracks();
+    }
   }, [accessToken]);
 
-  // Fetch playlists using the user ID
-  useEffect(() => {
-    if (!accessToken || !userId) return;
-
-    const fetchPlaylists = async () => {
-      setLoading(true);
-      try {
-        const res = await axios.get(`https://api.spotify.com/v1/users/me/playlists`, {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        });
-        setPlaylists(res.data.items);
-        setError(null);
-      } catch (err) {
-        console.error("Error fetching playlists:", err);
-        setError("Failed to fetch playlists.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPlaylists();
-  }, [accessToken, userId]);
-
-  if (loading) return <LoadingSpinner message="Loading..." />;
-  if (error) return <LoadingSpinner error={error} />;
+  if (loading) return <LoadingSpinner message="Loading playlist tracks..." />;
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white px-4 py-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">User Playlists</h1>
-      {!playlists.length ? (
-        <p className="text-center text-gray-400">No playlists found.</p>
-      ) : (
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {playlists.map((playlist) => (
+    <div className="bg-gray-900 min-h-screen p-6 text-white">
+      <h1 className="text-3xl font-bold text-center mb-8">Tracks in the Playlist</h1>
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {tracks.map((item, index) => {
+          const track = item.track;
+          return (
             <div
-              key={playlist.id}
-              className="bg-gray-800 rounded-lg overflow-hidden shadow hover:shadow-lg transition duration-300"
+              key={track.id || index}
+              className="bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition"
             >
-              {playlist.images?.[0]?.url && (
+              {track.album.images?.[0]?.url && (
                 <img
-                  src={playlist.images[0].url}
-                  alt={playlist.name}
+                  src={track.album.images[0].url}
+                  alt={track.name}
                   className="w-full h-48 object-cover"
                 />
               )}
               <div className="p-4">
-                <h2 className="text-lg font-semibold truncate">{playlist.name}</h2>
-                <p className="text-sm text-gray-400 line-clamp-2 mt-1">
-                  {playlist.description || "No description"}
+                <h2 className="text-lg font-semibold">{track.name}</h2>
+                <p className="text-sm text-gray-400 mt-1">
+                  {track.artists.map((artist) => artist.name).join(', ')}
                 </p>
               </div>
             </div>
-          ))}
-        </div>
-      )}
+          );
+        })}
+      </div>
     </div>
   );
 };
