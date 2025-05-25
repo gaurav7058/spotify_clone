@@ -5,21 +5,45 @@ import LoadingSpinner from './LoadingSpinner';
 
 const Dashboard = ({ code }) => {
   const accessToken = useAuth(code);
+  const [userId, setUserId] = useState(null);
   const [playlists, setPlaylists] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const user_id = "smedjan"; // static user ID
-  // console.log(accessToken)
+  // Fetch current user's Spotify profile to get user ID
   useEffect(() => {
     if (!accessToken) return;
+
+    const fetchUser = async () => {
+      setLoading(true);
+      try {
+        const res = await axios.get('https://api.spotify.com/v1/me', {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        });
+        setUserId(res.data.id);
+      } catch (err) {
+        console.error("Error fetching user info:", err);
+        setError("Failed to fetch user info.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, [accessToken]);
+
+  // Fetch playlists using the user ID
+  useEffect(() => {
+    if (!accessToken || !userId) return;
+
     const fetchPlaylists = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(`https://api.spotify.com/v1/users/${user_id}/playlists`, {
+        const res = await axios.get(`https://api.spotify.com/v1/users/me/playlists`, {
           headers: { Authorization: `Bearer ${accessToken}` }
         });
-        setPlaylists(res);
+        setPlaylists(res.data.items);
+        setError(null);
       } catch (err) {
         console.error("Error fetching playlists:", err);
         setError("Failed to fetch playlists.");
@@ -29,9 +53,9 @@ const Dashboard = ({ code }) => {
     };
 
     fetchPlaylists();
-  }, [accessToken]);
+  }, [accessToken, userId]);
 
-  if (loading) return <LoadingSpinner message="Loading playlists..." />;
+  if (loading) return <LoadingSpinner message="Loading..." />;
   if (error) return <LoadingSpinner error={error} />;
 
   return (
