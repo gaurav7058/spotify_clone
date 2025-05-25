@@ -5,11 +5,9 @@ const useAuth = (code) => {
   const [accessToken, setAccessToken] = useState(localStorage.getItem("accessToken") || null);
   const [refreshToken, setRefreshToken] = useState(localStorage.getItem("refreshToken") || null);
   const [expiresIn, setExpiresIn] = useState(localStorage.getItem("expiresIn") || null);
-
   // Get new token using code
   useEffect(() => {
     if (!code || accessToken) return;
-
     axios
       .post("https://spotify-clone-vr81.vercel.app/login", { code })
       .then((res) => {

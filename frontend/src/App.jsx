@@ -8,7 +8,6 @@ const App = () => {
   const codeFromURL = new URLSearchParams(window.location.search).get('code');
   const [code, setCode] = useState(localStorage.getItem("code"));
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     if (codeFromURL) {
       localStorage.setItem("code", codeFromURL);

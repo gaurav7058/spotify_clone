@@ -10,17 +10,16 @@ const Dashboard = ({ code }) => {
   const [error, setError] = useState(null);
 
   const user_id = "smedjan"; // static user ID
-
+  // console.log(accessToken)
   useEffect(() => {
     if (!accessToken) return;
-
     const fetchPlaylists = async () => {
       setLoading(true);
       try {
         const res = await axios.get(`https://api.spotify.com/v1/users/${user_id}/playlists`, {
           headers: { Authorization: `Bearer ${accessToken}` }
         });
-        setPlaylists(res.data.items);
+        setPlaylists(res);
       } catch (err) {
         console.error("Error fetching playlists:", err);
         setError("Failed to fetch playlists.");
