@@ -14,7 +14,7 @@ app.post("/refresh",(req,res)=>{
     const refreshToken=req.body.refreshToken
     console.log(refreshToken)
     const spotifyApi=new SpotifyWebApi({
-        redirectUri:"https://spotify-clone-frontend-flax.vercel.app/dashboard",
+        redirectUri:"https://spotify-clone-frontend-puce.vercel.app/dashboard",
         clientId:"7322e3c6dc2e49749868c347b09f83cf",
         clientSecret:"7cfa66411fe0420f8781f0309f5f97a1",
         refreshToken,
@@ -40,7 +40,7 @@ app.post('/login',(req,res)=>{
     const code=req.body.code
     console.log(code)
     const spotifyApi=new SpotifyWebApi({
-        redirectUri:"https://spotify-clone-frontend-flax.vercel.app/dashboard",
+        redirectUri:"https://spotify-clone-frontend-puce.vercel.app/dashboard",
         clientId:"7322e3c6dc2e49749868c347b09f83cf",
         clientSecret:"7cfa66411fe0420f8781f0309f5f97a1"
     })
