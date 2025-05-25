@@ -20,7 +20,6 @@ const App = () => {
   if (loading) return <LoadingSpinner message="Initializing app..." />;
 
   return (
-    //https://spotify-clone-frontend-flax.vercel.app
     <Router>
       <Routes>
         <Route path="/" element={code ? <Navigate to="/dashboard" /> : <Login />} />

@@ -1,12 +1,43 @@
-# React + Vite
+# 🎵 Spotify Homepage Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simplified clone of Spotify's homepage that displays a logged-in user's favorite playlists using the official [Spotify Web API](https://developer.spotify.com/documentation/web-api).
 
-Currently, two official plugins are available:
+## 🚀 Objective
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Recreate a personalized Spotify homepage experience with user authentication, API integration, and a clean responsive UI.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠 Tech Stack
+
+- **Frontend Framework:** React (with functional components and hooks)
+- **Styling:** Tailwind CSS (or use SCSS/styled-components/AntD as preferred)
+- **Authentication:** OAuth2 via Spotify
+- **API:** Spotify Web API.
+- **Backend:** Use express.js for genrate the token
+---
+
+## 🔑 Features
+
+### ✅ Core Features
+
+- **Spotify Login:** Authenticate users via OAuth2 with Spotify.
+- **Homepage UI:** 
+  - Display user’s favorite playlists after login.
+  - Clean, responsive layout.
+  - Error handling, state management, and loading indicators.
+- **API Integration:**
+  - `/me/playlists` - Get current user's playlists
+
+### 🌟 Bonus Features
+
+- **Responsive Design:** Fully mobile-friendly layout.
+-
+
+## 📦 Getting Started
+
+### 1. Clone the Repo
+
+```bash
+git clone https://github.com/yourusername/spotify-homepage-clone.git
+cd spotify-homepage-clone

@@ -9,7 +9,7 @@ const useAuth = (code) => {
   useEffect(() => {
     if (!code || accessToken) return;
     axios
-      .post("https://spotify-clone-3-xelk.onrender.com/login", { code })
+      .post("https://spotify-clone-bay-omega.vercel.app/login", { code })
       .then((res) => {
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
@@ -20,7 +20,7 @@ const useAuth = (code) => {
         localStorage.setItem("expiresIn", res.data.expiresIn);
       })
       .catch(() => {
-        window.location = "https://spotify-clone-frontend-flax.vercel.app/";
+        window.location = "/";
       });
   }, [code]);
 
@@ -30,7 +30,7 @@ const useAuth = (code) => {
 
     const interval = setInterval(() => {
       axios
-        .post("https://spotify-clone-3-xelk.onrender.com/refresh", { refreshToken })
+        .post("https://spotify-clone-bay-omega.vercel.app/refresh", { refreshToken })
         .then((res) => {
           setAccessToken(res.data.accessToken);
           setExpiresIn(res.data.expiresIn);
@@ -39,7 +39,7 @@ const useAuth = (code) => {
           localStorage.setItem("expiresIn", res.data.expiresIn);
         })
         .catch(() => {
-          window.location = "https://spotify-clone-frontend-flax.vercel.app/";
+          window.location = "/";
         });
     }, (expiresIn - 60) * 1000); // refresh 1 min before expiration
 
