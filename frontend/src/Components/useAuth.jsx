@@ -9,7 +9,7 @@ const useAuth = (code) => {
   useEffect(() => {
     if (!code || accessToken) return;
     axios
-      .post("https://spotify-clone-git-main-gaurav-choundiyes-projects.vercel.app/login", { code })
+      .post("https://spotify-clone-jet-psi.vercel.app/login", { code })
       .then((res) => {
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
@@ -30,7 +30,7 @@ const useAuth = (code) => {
 
     const interval = setInterval(() => {
       axios
-        .post("https://spotify-clone-git-main-gaurav-choundiyes-projects.vercel.app/refresh", { refreshToken })
+        .post("https://spotify-clone-jet-psi.vercel.app/refresh", { refreshToken })
         .then((res) => {
           setAccessToken(res.data.accessToken);
           setExpiresIn(res.data.expiresIn);
